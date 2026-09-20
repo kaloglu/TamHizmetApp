@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "414179327258",
-    "project_id": "tamhizmet-kaloglu",
-    "storage_bucket": "tamhizmet-kaloglu.firebasestorage.app"
+    "project_number": "1068904983971",
+    "project_id": "tamhizmet",
+    "storage_bucket": "tamhizmet.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:414179327258:android:19143173832c70236800a3",
+        "mobilesdk_app_id": "1:1068904983971:android:f2a12f8729f45341effe16",
         "android_client_info": {
           "package_name": "app.kaloglu.tamhizmet"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBqIpbhfMUrbXl16nHFteytL4ljx_QKwVo"
+          "current_key": "AIzaSyB9uKyIuDiVO3JXkLPduJsM2ZLy1SoYzkY"
         }
       ],
       "services": {

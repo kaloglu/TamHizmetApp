@@ -2,209 +2,96 @@
 
 ## 1. Proje Özeti & Vizyon
 **TamHizmet.app**, hizmet veren profesyoneller (Pro) ile hizmet almak isteyen müşterileri buluşturan çift taraflı (pazaryeri) bir platformdur.
-* **Proje Tipi:** Tek Flutter kod tabanında, kullanıcı yetkilendirme rolüne (`UserRole`) göre dinamik ekranlar sunan çift modüllü yapı:
-  * **Tam Hizmet Al:** Müşteri Modülü
-  * **Tam Hizmet Ver:** Profesyonel (Pro) Modülü
-* **Hedef Platformlar:** Android (Mobile App) ve Web (Responsive).
+
+* **Proje Tipi:** Tek Flutter kod tabanı — `UserRole` değerine göre iki ayrı modül:
+  * **Tam Hizmet Al:** Müşteri Modülü → [`customer_agent.md`](lib/features/customer_app/customer_agent.md)
+  * **Tam Hizmet Ver:** Profesyonel (Pro) Modülü → [`provider_agent.md`](lib/features/provider_app/provider_agent.md)
+* **Hedef Platformlar:** Android (iki ayrı APK) ve Web (tek uygulama, rol seçimli).
 
 ---
 
 ## 2. Teknoloji Yığını (Tech Stack)
-* **Frontend Framework:** Flutter (Dart)
-* **Backend Infrastructure:** Firebase (Authentication, Firestore, Cloud Functions, Cloud Messaging, Cloud Storage)
-* **State Management:** Flutter Bloc / Riverpod (Standart ve modüler yapı)
-* **Design System:** Material 3, Responsive Layout (LayoutBuilder & MediaQuery)
-* **External Integration:** `url_launcher` (WhatsApp yönlendirmesi için)
-* **Monetization & Payments:**
-  * **Android Mobile:** Google Play In-App Purchase (IAP)
-  * **Web:** Google Pay / PayTR / İyzico Entegrasyonu
+
+| Katman | Teknoloji |
+|---|---|
+| Frontend | Flutter (Dart) |
+| Backend | Firebase (Auth, Firestore, Cloud Functions, Cloud Messaging, Storage) |
+| State Management | Riverpod (flutter_riverpod) |
+| Routing | go_router (RouteGuard ile Onboarding kontrolü) |
+| Design System | Material 3 + Responsive Layout |
+| Harici | `url_launcher` (WhatsApp), Google Play IAP (Mobil), PayTR/İyzico (Web) |
 
 ---
 
-## 3. Platform & Responsive İş Kuralları (Web Mobile Blocker)
+## 3. Mimari Yapı & Feature Rehberleri
 
-### Mobil Web Engelleme (Overlay Blocker)
-Web sürümü tarayıcıda açıldığında, ekran genişliği mobil boyuta (`width < 600px`) düştüğü anda tüm ekranı kaplayan bir **Overlay Blocker** devreye girmelidir.
+Proje **Feature-First / Clean Architecture** prensibine göre yapılandırılmıştır. Her feature `data / domain / presentation` katmanlarına sahiptir. **Tüm teknik detaylar, iş kuralları ve implementasyon adımları ilgili feature'ın kendi agent dosyasında açıklanmıştır.**
 
-* **Ekranda Görüntülenecek Metin:** "Daha iyi bir deneyim için hemen uygulamamızı indirin"
-* **Yönlendirme Butonları (Google Play Store Links):**
-  1. **Tam Hizmet Al (Google Play)** -> Müşteri uygulamasını indirme bağlantısı.
-  2. **Tam Hizmet Ver (Google Play)** -> Pro uygulamasını indirme bağlantısı.
-* **Kısıtlama:** Kullanıcı mobil web görünümünde web üzerinden işlem yapamaz; tıklamalar pasife alınır ve mağazaya yönlendirilir.
-
----
-
-## 4. İletişim, Mesajlaşma ve WhatsApp Kuralları
-
-### A. Teklif Sonrası Sohbet Kuralları
-1. **Müşteri Tarafı:** Teklifi detaylandırmak ve soru sormak için Pro'ya **sınırsız** mesaj yazabilir.
-2. **Pro (Profesyonel) Tarafı:** 
-   * Teklif verdikten sonra Müşteri ile mesajlaşırken **sadece 1 kez ekstra mesaj/açıklama** yazma hakkına sahiptir.
-   * `quotes` dokümanında `provider_reply_count >= 1` olduğunda Pro tarafındaki mesaj yazma input'u ve gönder butonu pasif (`disabled`) duruma gelir.
-
-### B. WhatsApp / İletişim Numarası Açma ("İletişim No Al")
-1. Pro ekranındaki teklif detayında **"İletişim No Al / WhatsApp'tan Yaz"** butonu bulunur.
-2. Pro bu butona bastığında, sunduğu teklif tutarının **%10'u kadar kredi/ücret** hesabından düşer (Cloud Function üzerinden kontrol edilir).
-3. Ödeme/Kredi düşme işlemi başarılı olduğunda ilgili teklifin `contact_unlocked` değeri `true` yapılır.
-4. Müşterinin telefon numarası görünür hale gelir ve uygulama `url_launcher` kullanarak `https://wa.me/<customer_phone_number>` formatıyla cihazdaki WhatsApp uygulamasını doğrudan açar.
-
----
-
-## 5. Veritabanı Mimarisi (Firestore JSON Schemas)
-
-### `users` Collection
-```json
-{
-  "uid": "string",
-  "email": "string",
-  "phone": "string",
-  "display_name": "string",
-  "active_role": "CUSTOMER | PROVIDER | BOTH | ADMIN",
-  "created_at": "timestamp"
-}
-```
-### `customer_profiles` Collection
-```json
-{
-  "user_id": "string",
-  "created_at": "timestamp",
-  "province": "string",
-  "district": "string",
-  "neighborhood": "string",
-  "address": "string",
-  "rating_avg": 4.8,
-  "review_count": 0
-}
-```
-### `provider_profiles` Collection
-```json
-{
-  "user_id": "string",
-  "categories": ["cat_1", "cat_2"],
-  "service_provinces": ["İstanbul"],
-  "service_districts": ["Bayrampaşa", "Fatih"],
-  "service_neighborhoods": ["Yenidoğan Mh.", "Mevlana Mh."],
-  "credit_balance": 150.0,
-  "rating_avg": 4.8,
-  "review_count": 12,
-  "is_verified": false,
-  "created_at": "timestamp"
-}
-```
-### categories Collection (Dinamik Soru Şeması)
-```json
-{
-  "category_id": "ev_temizligi",
-  "category_name": "Ev Temizliği",
-  "icon": "cleaning_services",
-  "questions": [
-    {
-      "id": "oda_sayisi",
-      "label": "Eviniz kaç oda 1 salon?",
-      "type": "single_choice",
-      "options": ["1+1", "2+1", "3+1", "4+1 ve üzeri"]
-    },
-    {
-      "id": "evcil_hayvan",
-      "label": "Evde evcil hayvan var mı?",
-      "type": "boolean",
-      "options": ["Evet", "Hayır"]
-    },
-    {
-      "id": "ekstra_hizmetler",
-      "label": "Ekstra istekleriniz nelerdir?",
-      "type": "multiple_choice",
-      "options": ["Ütü İstiyorum", "Balkon Yıkama", "Fırın Temizliği"]
-    }
-  ]
-}
-```
-
-### requests Collection (Hizmet Talepleri)
-```json
-{
-  "request_id": "req_1001",
-  "customer_id": "user_customer_1",
-  "category_id": "ev_temizligi",
-  "form_answers": {
-    "oda_sayisi": "3+1",
-    "evcil_hayvan": "Evet",
-    "ekstra_hizmetler": ["Ütü İstiyorum", "Balkon Yıkama"]
-  },
-  "location": {
-    "city": "İstanbul",
-    "district": "Kadıköy"
-  },
-  "status": "OPEN | IN_PROGRESS | COMPLETED | CANCELLED",
-  "max_quotes": 5,
-  "current_quote_count": 2,
-  "created_at": "timestamp"
-}
-```
-
-### quotes Collection (Teklifler)
-```json
-{
-  "quote_id": "quote_5001",
-  "request_id": "req_1001",
-  "provider_id": "user_provider_1",
-  "price": 1500.00,
-  "note": "Tüm malzemeler tarafımdan karşılanacaktır.",
-  "provider_reply_count": 0,
-  "contact_unlocked": false,
-  "status": "PENDING | ACCEPTED | REJECTED",
-  "created_at": "timestamp"
-}
-```
-
-### chats & messages Sub-collections
-```json
-// chats/{chat_id}
-{
-  "request_id": "req_1001",
-  "quote_id": "quote_5001",
-  "customer_id": "user_customer_1",
-  "provider_id": "user_provider_1",
-  "last_message": "Saat 10:00'da adreste olabilirim.",
-  "updated_at": "timestamp"
-}
-
-// chats/{chat_id}/messages/{message_id}
-{
-  "sender_id": "string",
-  "sender_role": "CUSTOMER | PROVIDER",
-  "message_text": "string",
-  "sent_at": "timestamp"
-}
-```
-
-## 6. Geliştirici Ajan (Agent) İçin Kodlama ve Mimari Kuralları
-**Feature-First / Clean Architecture Klasör Yapısı:**
 ```
 lib/
-├── core/
-│   ├── constants/
-│   ├── services/ (Firebase, Payment, UrlLauncher)
-│   ├── utils/
-│   └── widgets/ (FormBuilderWidget, ResponsiveOverlayBlocker)
+├── core/           → Paylaşımlı servisler, widget'lar, sabitler
 ├── features/
 │   ├── auth/
-│   ├── customer_app/ (Tam Hizmet Al ekranları ve logic)
-│   ├── provider_app/ (Tam Hizmet Ver ekranları ve logic)
+│   ├── customer_app/
+│   ├── provider_app/
 │   ├── chat/
 │   └── profile/
-└── main.dart
+├── main_customer.dart   ← Müşteri APK giriş noktası
+├── main_provider.dart   ← Pro APK giriş noktası
+└── main.dart            ← Web giriş noktası (rol seçimli)
 ```
 
-**Dynamic Form Generator:** Firestore categories koleksiyonundaki questions JSON dizisini okuyarak single_choice, multiple_choice, boolean ve text tiplerine göre otomatik Flutter form elemanları oluşturan modüler bir FormBuilderWidget yazılmalıdır.
+### Feature Agent Dosyaları
 
-**Type Safety & Models:** Tüm Firestore koleksiyonları için fromJson ve toJson dönüşüm metodlarına sahip tip güvenli (strongly-typed) Dart sınıf modelleri (UserModel, RequestModel, QuoteModel, CategoryModel) kullanılmalıdır.
+| Feature | Kapsam | Agent Dosyası |
+|---|---|---|
+| **Core** | Paylaşımlı servisler, FormBuilderWidget, Overlay Blocker | [`core_agent.md`](lib/core/core_agent.md) |
+| **Auth** | Kayıt, giriş, rol seçimi, Onboarding Guard | [`auth_agent.md`](lib/features/auth/auth_agent.md) |
+| **Customer App** | Hizmet talebi, dinamik form, teklifler | [`customer_agent.md`](lib/features/customer_app/customer_agent.md) |
+| **Provider App** | Talep listeleme, teklif verme, iletişim no al | [`provider_agent.md`](lib/features/provider_app/provider_agent.md) |
+| **Chat** | Teklif sonrası mesajlaşma, Pro mesaj limiti | [`chat_agent.md`](lib/features/chat/chat_agent.md) |
+| **Profile** | Müşteri & Pro profil formu, Onboarding Guard | [`profile_agent.md`](lib/features/profile/profile_agent.md) |
 
-**Pro Message Guard:** Pro tarafında mesaj gönderilirken provider_reply_count kontrol edilmeli; ilk mesaj gönderildikten sonra bu sayaç 1 artırılmalı ve yeni mesaj girişi engellenmelidir.
+---
 
-**Web Mobile Blocking Implementation:** Global MaterialApp seviyesinde LayoutBuilder veya MediaQuery kullanılarak web platformunda genişlik < 600px olduğunda ekranın üzerine z-index seviyesi yüksek yönlendirme Modal'ı yerleştirilmelidir.
+## 4. Kritik Platform Kuralları (Özet)
 
-**App Ayrımı (Customer & Provider):** Müşteri ve Profesyonel (Hizmet Veren) uygulamaları mobil (Android) tarafında **daima iki ayrı uygulama (farklı APK/AAB)** olarak çıkarılacaktır (örneğin `main_customer.dart` ve `main_provider.dart` ile ayrılarak). **Web tarafında ise** tek bir uygulama olacak; kullanıcı web'e girdiğinde veya giriş yaptığında rolünü seçecek ve sistem ona göre yönlendirme yapacaktır.
+> Detaylar için ilgili feature agent dosyasına bakın.
+
+* **Mobil / Web App Ayrımı:** Mobil'de iki ayrı APK (`main_customer.dart`, `main_provider.dart`). Web'de tek uygulama — kullanıcı "Hizmet Al / Hizmet Ver" sekmeleriyle giriş yapar. → [`auth_agent.md`](lib/features/auth/auth_agent.md)
+
+* **Onboarding Guard:** Kayıt sonrası profil formu doldurulmadan hiçbir işlem yapılamaz. RouteGuard eksik profili tespit eder. → [`profile_agent.md`](lib/features/profile/profile_agent.md)
+
+* **Web Mobil Engelleme (Overlay Blocker):** Web'de `width < 600px` olduğunda tüm ekranı kaplayan yönlendirme modalı devreye girer. → [`core_agent.md`](lib/core/core_agent.md)
+
+* **Pro Mesaj Limiti:** Pro teklif sonrası yalnızca 1 mesaj hakkına sahiptir. → [`chat_agent.md`](lib/features/chat/chat_agent.md)
+
+* **Dinamik Form:** `categories` koleksiyonundaki `questions` dizisi `FormBuilderWidget` ile otomatik render edilir. → [`customer_agent.md`](lib/features/customer_app/customer_agent.md) & [`core_agent.md`](lib/core/core_agent.md)
+
+---
+
+## 5. Gelir Modeli ve Monetizasyon (Özet)
+
+> Detaylar için [`provider_agent.md`](lib/features/provider_app/provider_agent.md) dosyasına bakın.
+
+
+---
+
+## 6. Veritabanı Şeması (Özet)
+
+> Tam JSON şemaları ve alan açıklamaları ilgili feature agent dosyalarındadır.
+
+| Koleksiyon | Sahip Feature |
+|---|---|
+| `users` | [`auth_agent.md`](lib/features/auth/auth_agent.md) |
+| `customer_profiles` | [`profile_agent.md`](lib/features/profile/profile_agent.md) |
+| `provider_profiles` | [`profile_agent.md`](lib/features/profile/profile_agent.md) |
+| `categories` | [`customer_agent.md`](lib/features/customer_app/customer_agent.md) |
+| `requests` | [`customer_agent.md`](lib/features/customer_app/customer_agent.md) |
+| `quotes` | [`provider_agent.md`](lib/features/provider_app/provider_agent.md) |
+| `chats` & `messages` | [`chat_agent.md`](lib/features/chat/chat_agent.md) |
+
+---
 
 ## 7. Proje Yönetimi ve Dosya Sistemi Kuralları (Project Management)
 
@@ -216,16 +103,16 @@ Sadece özet başlıkların ve durumların takip edildiği, detayların ise ayr�
 *   **`todo.md` (Yapılacaklar):** Sadece bekleyen işlerin özet başlıkları yer alır.
     *   Format: `T<Öncelik>-SıraNo: Özet Başlık` (Örn: `T1-0001: Firestore Auth Entegrasyonu`)
     *   Görevler her zaman önem derecesine (1'den 9'a doğru) sıralanır.
-*   **`DONE.md` (Tamamlananlar):** Biten işler `todo.md` dosyasından buraya taşınır.
+*   **`done.md` (Tamamlananlar):** Biten işler `todo.md` dosyasından buraya taşınır.
     *   Format: `T` harfi `D` olur. (Örn: `D1-0001: Firestore Auth Entegrasyonu`)
 *   **`issues.md` (Görev Detayları):** Görevlerin teknik detayları ve açıklamaları burada tutulur.
     *   **Üst Kısım (Bekleyenler):** `todo.md` içindeki `T` ile başlayan görevlerin detaylı açıklamaları.
-    *   **Alt Kısım (Bitenler):** `DONE.md` içindeki `D` ile başlayan görevlerin detaylı açıklamaları.
-*   **`Questions.md` (Kritik Sorular):** Projenin işleyişi hakkında netleşmesi gereken sorular.
+    *   **Alt Kısım (Bitenler):** `done.md` içindeki `D` ile başlayan görevlerin detaylı açıklamaları.
+*   **`questions.md` (Kritik Sorular):** Projenin işleyişi hakkında netleşmesi gereken sorular.
     *   Bekleyen Soru Formatı: `Q<Öncelik>-0001: Soru metni` (Örn: `Q1-0001: ...`)
     *   Cevaplananlar dosyanın en altına taşınır.
     *   Cevap Formatı: Cevaplar `A: ` önekiyle eklenir. Ajan, kullanıcıdan aldığı cevabı kopyala-yapıştır yapmamalı, **kendi anladığı şekilde teknik bir özete dönüştürerek** kaydetmelidir.
-*   **`Test.md` (Test Senaryoları):** Test edilecek modüller ve özellikler.
+*   **`tests.md` (Test Senaryoları):** Test edilecek modüller ve özellikler.
     *   Bekleyen Test Formatı: `C<Öncelik>-0001: Test edilecek işlem` (Örn: `C2-0001: ...`)
     *   Başarıyla biten testler dosyanın en altına taşınır.
 
@@ -249,8 +136,8 @@ Bir dosyada her yeni güncelleme (commit/mesaj döngüsü) yapıldığında ajan
 Ajan, projede kod değişikliklerini commit ederken aşağıdaki kurallara harfiyen uymalıdır:
 
 1. **Dil:** Tüm commit mesajları kesinlikle **Türkçe** yazılacaktır.
-2. **Tamamlanan Görevler:** `todo.md` dosyasından `DONE.md` dosyasına taşınan (yani tamamlanan) işler varsa, commit başlığında veya açıklamasında bu işlerin referans numaraları (`D` prefixi ile) mutlaka belirtilmelidir.
-3. **Yeni Eklenen veya Güncellenen Öğeler (Q, A, C/CH):** Bu commit kapsamında `Questions.md` veya `Test.md` dosyalarında oluşturulan yeni Sorular (`Q`), eklenen Cevaplar (`A`) veya yeni Test/Kontrol maddeleri (`C` veya `CH`) varsa, commit mesajının açıklama (body) kısmında referans numaralarıyla listelenmelidir.
+2. **Tamamlanan Görevler:** `todo.md` dosyasından `done.md` dosyasına taşınan (yani tamamlanan) işler varsa, commit başlığında veya açıklamasında bu işlerin referans numaraları (`D` prefixi ile) mutlaka belirtilmelidir.
+3. **Yeni Eklenen veya Güncellenen Öğeler (Q, A, C/CH):** Bu commit kapsamında `questions.md` veya `tests.md` dosyalarında oluşturulan yeni Sorular (`Q`), eklenen Cevaplar (`A`) veya yeni Test/Kontrol maddeleri (`C` veya `CH`) varsa, commit mesajının açıklama (body) kısmında referans numaralarıyla listelenmelidir.
 
 **Örnek Commit Mesajı Formatı:**
 ```text
@@ -260,3 +147,20 @@ feat: profesyonel iletişim no alma butonu eklendi
 - Q1-0002 numaralı soru eklendi ve A1-0002 olarak cevaplandı.
 - C1-0005 numaralı test senaryosu oluşturuldu.
 ```
+
+## 8. UI, Tasarım Sistemi ve Dil Yönetimi (Theming & Localization)
+
+Ajan, kullanıcı arayüzü (UI) geliştirirken aşağıdaki tasarım ve metin kurallarına kesinlikle uymak zorundadır. Kolaya kaçarak hardcoded değer kullanmak yasaktır.
+
+### 8.1. Renk ve Tema Yönetimi (Zero Hardcoded Colors)
+* Uygulama genelinde `Colors.red`, `Color(0xFF...)` gibi statik renk tanımlamaları UI widget'ları içinde **kesinlikle kullanılamaz**.
+* Tüm renkler `Theme.of(context).colorScheme` (örn: `primary`, `secondary`, `surface`, `error`) üzerinden çağrılacaktır.
+* `lib/core/theme/app_themes.dart` dosyası oluşturulacak ve uygulamanın temaları (Default Light, Dark ve Özel Temalar örn: "29Ekim") `ThemeData` ve `ColorScheme.fromSeed` kullanılarak burada merkezi olarak tanımlanacaktır.
+
+### 8.2. Metin ve Çoklu Dil Yönetimi (Zero Hardcoded Strings)
+* Ekranda kullanıcıya gösterilen hiçbir metin (buton, başlık, uyarı mesajı) UI widget'ı içine statik string olarak (Örn: `Text('Giriş Yap')`) **yazılamaz**.
+* Projede `flutter_localizations` yapısı kurulacak ve tüm metinler `lib/l10n/app_tr.arb` dosyası içinde anahtar-değer (key-value) şeklinde tutulacaktır.
+* UI bileşenlerinde metinler `AppLocalizations.of(context)!.keyName` formatında çağrılacaktır.
+
+### 8.3. Bileşen Mimarisi (Reusable Widgets)
+* Projede sık kullanılan UI elemanları (Ana Butonlar, Custom TextField'lar, Yükleme İndikatörleri) `lib/core/widgets/` altına ayrıştırılacak ve her yerde bu ortak bileşenler kullanılacaktır. Padding ve margin değerleri için standart sabitler (Örn: `AppSpacing.md`) oluşturulacaktır.

@@ -44,10 +44,11 @@ lib/features/customer_app/
 
 1. **Onboarding Guard:** `customer_profiles` dokümanı eksikse kullanıcı profil ekranına yönlendirilir.
 2. **Dinamik Form:** `categories/{id}` dokümanındaki `questions` dizisi `FormBuilderWidget` tarafından otomatik render edilir.
-3. **Teklif Limiti:** Bir talep en fazla `max_quotes` (varsayılan: 5) teklif alabilir.
+3. **Teklif Limiti:** Bir talep en fazla `max_quotes` (varsayılan: 10) teklif alabilir.
 4. **Müşteri Mesajı:** Teklif sonrası Pro'ya sınırsız mesaj gönderebilir.
 5. **Talep Durumu:** `OPEN → IN_PROGRESS → COMPLETED | CANCELLED`
 6. **Konum:** `requests` dokümanında `location.province / district / neighborhood` kullanılır.
+7. **Rol Değişimi:** Müşteri, "Hizmet Ver" rolüne geçmek isterse Profildeki menüden Hizmet Ver seçeneğini kullanmalıdır. Bu işlem sonrasında `customer_profiles` dokümanı asla silinmez ve korunur. Kullanıcı Rolü her iki tipe de sahip olduğu için BOTH olarak değişir.
 
 ---
 

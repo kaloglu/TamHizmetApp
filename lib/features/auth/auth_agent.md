@@ -1,60 +1,51 @@
 # Auth Feature — Agent Guide
 
 ## Amaç
-Kullanıcı kimlik doğrulama, rol seçimi ve zorunlu profil tamamlama (Onboarding Guard) işlemlerini yönetir.
+Kullanıcı kimlik doğrulama (**Sadece Google Sign-In**), rol seçimi ve zorunlu profil tamamlama (Onboarding Guard) işlemlerini yönetir.
 
 ---
 
-## Klasör Yapısı
+## Klasör Yapısı (Pragmatik Feature-First)
 
 ```
 lib/features/auth/
 ├── data/
-│   ├── models/         → Firestore ↔ Dart dönüşüm sınıfları
-│   │   └── user_model.dart
-│   └── repositories/   → Firebase Auth işlemleri (AuthRepositoryImpl)
-│       └── auth_repository_impl.dart
+│   └── auth_repository.dart         → Firebase Auth & GoogleSignIn işlemleri
 ├── domain/
-│   ├── entities/       → Saf Dart varlık sınıfları (iş mantığı bağımsız)
-│   │   └── user_entity.dart
-│   └── usecases/       → Tek sorumluluk iş kuralları
-│       ├── sign_in_usecase.dart
-│       ├── sign_up_usecase.dart
-│       └── sign_out_usecase.dart
+│   └── user_model.dart              → UserModel, UserRole enum (fromMap, toMap)
 └── presentation/
-    ├── bloc/           → AuthBloc / AuthNotifier (state yönetimi)
-    │   ├── auth_bloc.dart
-    │   ├── auth_event.dart
-    │   └── auth_state.dart
-    ├── screens/        → Ekranlar
-    │   ├── role_selection_screen.dart   ← Mobil: Hizmet Al / Hizmet Ver
-    │   ├── login_screen.dart            ← Web: Sekmeli giriş | Mobil: Standart
-    │   └── register_screen.dart
-    └── widgets/        → Ekranlara özgü küçük bileşenler
-        ├── role_card_widget.dart
-        └── auth_text_field_widget.dart
+    ├── controllers/
+    │   └── auth_controller.dart     → Riverpod Notifier (AuthState, Google Sign-In)
+    ├── screens/
+    │   ├── role_selection_screen.dart ← Mobil ilk açılış: Hizmet Al / Hizmet Ver
+    │   └── login_screen.dart          ← Web sekmeli / Mobil Google Sign-In butonu
+    └── widgets/
+        ├── google_sign_in_button.dart
+        └── role_card_widget.dart
 ```
 
 ---
 
 ## Temel İş Kuralları
 
-1. **UserRole:** `CUSTOMER | PROVIDER | BOTH | ADMIN`
-2. **Web Giriş:** LoginScreen'de "Hizmet Al" ve "Hizmet Ver" sekmeleri bulunur. `active_role = BOTH` olan kullanıcı menüden rol değiştirebilir.
-3. **Mobil Giriş:** Uygulama entry-point'i (`main_customer.dart` veya `main_provider.dart`) rolü sabitler. RoleSelectionScreen ilk kayıtta bir kez gösterilir.
-4. **Onboarding Guard:** Kayıt sonrası `customer_profiles` veya `provider_profiles` dokümanı oluşturulmadan kullanıcı hiçbir işlem yapamaz. RouteGuard eksik profili tespit edince profil tamamlama ekranına yönlendirir.
-5. **Firestore Yazımı:** Kayıt başarılı olduğunda `users/{uid}` dokümanı oluşturulur.
+1. **Kimlik Doğrulama Yöntemi:** Yalnızca **Google Sign-In** kullanılır. E-posta ve şifre formları kullanılmaz.
+2. **UserRole:** `CUSTOMER | PROVIDER | BOTH | ADMIN`
+3. **Web Giriş:** LoginScreen'de "Hizmet Al" ve "Hizmet Ver" sekmeleri bulunur. Kullanıcı sekmesini seçer ve "Google ile Giriş Yap" butonuna tıklar. `active_role = BOTH` olan kullanıcı menüden rol değiştirebilir. Kullanıcı BOTH değilse menüden geçiş yerine "Hizmet Ver/Al Profili Oluştur" seçeneği çıkar. Eğer BOTH ise menüden switch ile ilgili rolün ana ekranına geçilir.
+4. **Mobil Giriş:** Uygulama entry-point'i (`main_customer.dart` veya `main_provider.dart`) rolü sabitler. İlk girişte "Google ile Giriş Yap" butonu ile kimlik doğrulanır. Mobil cihazlarda BOTH seçeneği yoktur; kullanıcı kurulu olan uygulamayı kullanır.
+5. **Onboarding Guard:** Google Sign-In sonrası kullanıcının `customer_profiles` veya `provider_profiles` dokümanı kontrol edilir. Profil oluşturulmamışsa hiçbir işlem yapamaz; RouteGuard eksik profili tespit edip profil tamamlama ekranına yönlendirir.
+6. **Firestore Kaydı:** İlk Google girişinde `users/{uid}` dokümanı Google bilgileriyle (ad, e-posta, foto URL) oluşturulur.
 
 ---
 
 ## Bağımlılıklar
 - `firebase_auth`
+- `google_sign_in`
 - `cloud_firestore`
-- `flutter_riverpod` (AuthNotifier için)
+- `flutter_riverpod` (AuthController için)
 - `go_router` (RouteGuard için)
 
 ---
 
 ## İlgili Görev & Testler
 - Görev: **T1-0003**
-- Testler: C1-0001, C1-0002, C1-0003, C1-0004, C2-0001, C2-0002, C2-0003, C1-0010, C1-0011, C1-0012
+- Testler: C1-0001, C1-0003, C1-0004, C2-0001, C2-0002, C2-0003, C1-0010, C1-0011, C1-0012

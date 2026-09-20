@@ -50,19 +50,19 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyDX62tGvQ8UEwqBMrQg6AxBMWa9E6nij58',
-    appId: '1:414179327258:web:cb90a890446698286800a3',
-    messagingSenderId: '414179327258',
-    projectId: 'tamhizmet-kaloglu',
-    authDomain: 'tamhizmet-kaloglu.firebaseapp.com',
-    storageBucket: 'tamhizmet-kaloglu.firebasestorage.app',
+    apiKey: 'AIzaSyD07d-ie9ITr0IIPWCxnRnAre2kA7gEPSw',
+    appId: '1:1068904983971:web:88fea5123b6ae29eeffe16',
+    messagingSenderId: '1068904983971',
+    projectId: 'tamhizmet',
+    authDomain: 'tamhizmet.firebaseapp.com',
+    storageBucket: 'tamhizmet.firebasestorage.app',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBqIpbhfMUrbXl16nHFteytL4ljx_QKwVo',
-    appId: '1:414179327258:android:19143173832c70236800a3',
-    messagingSenderId: '414179327258',
-    projectId: 'tamhizmet-kaloglu',
-    storageBucket: 'tamhizmet-kaloglu.firebasestorage.app',
+    apiKey: 'AIzaSyB9uKyIuDiVO3JXkLPduJsM2ZLy1SoYzkY',
+    appId: '1:1068904983971:android:f2a12f8729f45341effe16',
+    messagingSenderId: '1068904983971',
+    projectId: 'tamhizmet',
+    storageBucket: 'tamhizmet.firebasestorage.app',
   );
 }

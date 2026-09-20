@@ -54,6 +54,15 @@ lib/features/profile/
 
 5. **Web Rol Geçişi:** `active_role = BOTH` olan kullanıcı profil menüsündeki role-switch butonu aracılığıyla aktif rolünü değiştirir; bu `users/{uid}.active_role` alanını günceller.
 
+6. **Müşterinin "Hizmet Ver" Rolüne Geçişi:**
+Müşteri, Profil ekranındaki menüden "Hizmet Ver" seçeneğini seçerek profesyonel rolüne geçebilir. Bu işlem sırasında mevcut müşteri profili (`customer_profiles`) korunarak kullanıcıya yeni bir profesyonel profili (`provider_profiles`) oluşturulur. Kullanıcının `users/{uid}` kaydındaki `active_role` değeri `BOTH` olarak güncellenir. Artık kullanıcı her iki rolün de özelliklerine sahiptir. 
+
+7. **Profesyonelin "Hizmet Al" Rolüne Geçişi:**
+Profesyonel, Profil ekranındaki menüden "Hizmet Al" seçeneğini seçerek müşteri rolüne geçebilir. Bu işlem sırasında mevcut profesyonel profili (`provider_profiles`) korunarak kullanıcıya yeni bir müşteri profili (`customer_profiles`) oluşturulur. Kullanıcının `users/{uid}` kaydındaki `active_role` değeri `BOTH` olarak güncellenir. Artık kullanıcı her iki rolün de özelliklerine sahiptir. 
+
+8. **Hesabın silinmesi**
+Kullanıcı profil sayfasından hesabını silebilir. Bu işlem sırasında `users/{uid}` dokümanı silinir. Bununla birlikte, customeri provider yada both olmasına bakılmaksızın `customer_profiles` ve `provider_profiles` dokümanları inactive olarak işaretlenir ve 30 gün boyunca saklanır. 30 günde bir inactive verilerin tamamen silinmesi için gerekli betik hazırlanır.
+
 ---
 
 ## Firestore Şeması

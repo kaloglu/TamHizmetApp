@@ -27,6 +27,9 @@
 
 Proje **Feature-First / Clean Architecture** prensibine göre yapılandırılmıştır. Her feature `data / domain / presentation` katmanlarına sahiptir. **Tüm teknik detaylar, iş kuralları ve implementasyon adımları ilgili feature'ın kendi agent dosyasında açıklanmıştır.**
 
+> [!CRITICAL]
+> **KATI KURAL:** Herhangi bir feature ile çalışmaya başlamadan önce mutlaka ilgili feature'ın `.md` (agent) dosyası dikkatlice incelenmeli, yapılacak değişiklikler ya da yapılan düzenlemeler o dosyaya uygun şekilde işlenmelidir! Her işten önce ilgili feature agent dosyalarının kontrol edilmesi zorunludur.
+
 ```
 lib/
 ├── core/           → Paylaşımlı servisler, widget'lar, sabitler

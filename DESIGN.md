@@ -1,82 +1,217 @@
-# Tasarım Sistemi Manifestosu: TamHizmet.app
-
-Bu doküman, TamHizmet.app projesinin görsel dilini, tasarım token'larını (tasarım bileşenlerini) ve bileşen mimarisini tanımlar. **Google Stitch** ve yazılım geliştirme sürecinde ortak bir rehber olarak kullanılmak üzere hazırlanmıştır.
-
-## 1. Marka Kimliği & "Vibe" (Hissiyat)
-
-*   **Hissiyat (Vibe):** Modern, Profesyonel, Güven Verici, Sade.
-*   **Hedef Kitle:** Çift taraflı pazaryeri (Hizmet Alan Müşteriler & Hizmet Veren Profesyoneller / Pro'lar).
-*   **Konsept:** Kusursuz bağlantı. Arayüz olabildiğince görünmez hissettirmeli, tamamen görevlerin netliğine ve iletişime odaklanmalıdır.
-
+---
+name: TamHizmetApp / Pro Service Marketplace
+colors:
+  surface: '#F8FAFC'
+  surface-dim: '#d2d9f4'
+  surface-bright: '#faf8ff'
+  surface-container-lowest: '#ffffff'
+  surface-container-low: '#f2f3ff'
+  surface-container: '#EEF2F6'
+  surface-container-high: '#E2E8F0'
+  surface-container-highest: '#dae2fd'
+  on-surface: '#131b2e'
+  on-surface-variant: '#3c4a47'
+  inverse-surface: '#283044'
+  inverse-on-surface: '#eef0ff'
+  outline: '#64748B'
+  outline-variant: '#CBD5E1'
+  surface-tint: '#006a62'
+  primary: '#006a62'
+  on-primary: '#003733'
+  primary-container: '#C8FAF4'
+  on-primary-container: '#004F49'
+  inverse-primary: '#3adccc'
+  secondary: '#306576'
+  on-secondary: '#ffffff'
+  secondary-container: '#D0E8ED'
+  on-secondary-container: '#082B34'
+  tertiary: '#545f73'
+  on-tertiary: '#ffffff'
+  tertiary-container: '#bfcae2'
+  on-tertiary-container: '#4a5569'
+  error: '#E11D48'
+  on-error: '#ffffff'
+  error-container: '#FFE4E6'
+  on-error-container: '#881337'
+  primary-fixed: '#61f9e9'
+  primary-fixed-dim: '#3adccc'
+  on-primary-fixed: '#00201d'
+  on-primary-fixed-variant: '#005049'
+  secondary-fixed: '#b6ebfe'
+  secondary-fixed-dim: '#9acee1'
+  on-secondary-fixed: '#001f28'
+  on-secondary-fixed-variant: '#114d5d'
+  tertiary-fixed: '#d8e3fb'
+  tertiary-fixed-dim: '#bcc7de'
+  on-tertiary-fixed: '#111c2d'
+  on-tertiary-fixed-variant: '#3c475a'
+  background: '#faf8ff'
+  on-background: '#131b2e'
+  surface-variant: '#dae2fd'
+  badge-pending-bg: '#FEF3C7'
+  badge-pending-text: '#92400E'
+  badge-active-bg: '#CCFBF1'
+  badge-active-text: '#0F766E'
+typography:
+  headline-xl:
+    fontFamily: Inter
+    fontSize: 32px
+    fontWeight: '700'
+    lineHeight: 40px
+    letterSpacing: -0.02em
+  headline-xl-mobile:
+    fontFamily: Inter
+    fontSize: 26px
+    fontWeight: '700'
+    lineHeight: 34px
+    letterSpacing: -0.02em
+  headline-lg:
+    fontFamily: Inter
+    fontSize: 24px
+    fontWeight: '600'
+    lineHeight: 32px
+    letterSpacing: -0.015em
+  headline-md:
+    fontFamily: Inter
+    fontSize: 20px
+    fontWeight: '600'
+    lineHeight: 28px
+    letterSpacing: -0.01em
+  headline-sm:
+    fontFamily: Inter
+    fontSize: 18px
+    fontWeight: '600'
+    lineHeight: 24px
+  body-lg:
+    fontFamily: Inter
+    fontSize: 16px
+    fontWeight: '400'
+    lineHeight: 24px
+  body-md:
+    fontFamily: Inter
+    fontSize: 14px
+    fontWeight: '400'
+    lineHeight: 21px
+  body-sm:
+    fontFamily: Inter
+    fontSize: 12px
+    fontWeight: '400'
+    lineHeight: 18px
+  label-lg:
+    fontFamily: Inter
+    fontSize: 14px
+    fontWeight: '600'
+    lineHeight: 20px
+    letterSpacing: 0.01em
+  label-md:
+    fontFamily: Inter
+    fontSize: 12px
+    fontWeight: '500'
+    lineHeight: 16px
+    letterSpacing: 0.01em
+  label-sm:
+    fontFamily: Inter
+    fontSize: 11px
+    fontWeight: '600'
+    lineHeight: 14px
+    letterSpacing: 0.02em
+rounded:
+  sm: 0.25rem
+  DEFAULT: 0.5rem
+  md: 0.75rem
+  lg: 1rem
+  xl: 1.5rem
+  full: 9999px
+spacing:
+  gutter: 1rem
+  gutter-sm: 0.75rem
+  margin: 1rem
+  margin-lg: 1.5rem
+  space-xs: 0.25rem
+  space-sm: 0.5rem
+  space-md: 1rem
+  space-lg: 1.5rem
+  space-xl: 2rem
 ---
 
-## 2. Tasarım Token'ları (Design Tokens)
+## Brand & Style
 
-### 2.1 Renk Paleti
-Markanın ana kimliği kesinlikle Turkuaz rengi (`#40E0D0`) olarak sabitlenmiştir. Diğer yardımcı renkleri ve türetilmiş tonları Google Stitch kendi tasarım sistemine göre belirleyecektir.
+Bu tasarım sistemi, iki taraflı hizmet pazaryerinin (hizmet talep eden müşteriler ve sahada çözüm üreten profesyoneller) operasyonel hızını, güvenini ve dakikliğini merkeze alır. Tasarım yaklaşımı, **Minimalist Modern** temellere dayanır: Görsel gürültüden arındırılmış zeminler, net bilgi hiyerarşisi ve amaca odaklı mikro etkileşimlerle yapılandırılmıştır.
 
-| Token Adı | Görevi / Rolü | HEX Kodu | Kullanım Alanı |
-|---|---|---|---|
-| `primary` | Ana Marka Rengi | `#40E0D0` | Ana butonlar, aktif seçim durumları, vurgular. |
-| `primary-variant` | Vurgu Tonu | `#17C3B2` | Gradyanlar, hover (üzerine gelme) durumları. |
-| `bg-light` | Arka Plan (Açık) | `#F8F9FA` | Açık Tema (Light Mode) ana arka planı. |
-| `bg-dark` | Arka Plan (Koyu) | `#1E1E1E` | Karanlık Tema (Dark Mode) ana arka planı (Koyu Gri). |
-| `surface` | Kart / Yüzey | `#FFFFFF` | Açık temadaki kart ve katman arka planları. |
-| `surface-dark` | Kart / Yüzey (Koyu) | `#2B2B2B` | Karanlık temadaki kart ve katman arka planları. |
-| `text-primary` | Ana Metin | `#212529` | Başlıklar ve yoğun okunacak ana metinler. |
-| `text-secondary` | Yan Metin | `#6C757D` | Açıklamalar, etiketler, yardımcı ipucu metinleri. |
-| `error` | Hata / Uyarı | `#DC3545` | Doğrulama hataları, silme veya geri alınamaz aksiyonlar. |
+UI deneyiminin kullanıcı gruplarında uyandırdığı duygusal karşılık:
+- **Hizmet Alan:** Güven, süreç şeffaflığı, zahmetsiz rezervasyon ve anında çözüm hissi.
+- **Hizmet Veren (Pro):** İş akışında profesyonellik, yüksek kontrastlı operasyonel okunabilirlik ve zorlu saha koşullarında dahi hatasız tek elle kontrol ergonomisi.
 
-### 2.2 Tipografi (Yazı Tipi Kuralları)
-*   **Sistem Yazı Tipi:** Inter veya Roboto.
-*   **Başlıklar (Headlines):** Yarı kalın (Semi-bold), harf arası boşluğu sıkı.
-*   **Gövde Metni (Body):** Düzenli (Regular), okunurluğu artırmak için rahat satır yüksekliği (1.5).
+Görsel kimlik; ferah yüzeyler, dengeli koyu deniz tonları ve canlı `#40E0D0` turkuaz aksanlarla dinamik bir kontrast dengesi sunar.
 
-### 2.3 Boşluklar & Köşe Oval hatları (Spacing & Radius)
-*   **Temel Birim:** 4px.
-*   **Izgara (Grid):** 4px'in katları (8, 16, 24, 32, 48, 64px).
-*   **Köşe Ovalliği (Radius):**
-    *   `sm`: 4px (Giriş alanları / Inputs)
-    *   `md`: 12px (Küçük Kartlar, Modallar)
-    *   `lg`: 24px (Ana Kapsayıcılar, Alt Sayfalar / Bottom Sheets)
+## Colors
 
----
+Renk paleti, canlı turkuaz temel alınarak yüksek kontrast ve erişilebilirlik ilkeleri doğrultusunda yeniden kurgulanmıştır:
 
-## 3. Bileşen Mimarisi (Component Architecture)
+- **Primary (`#40E0D0` - Turquoise):** Servis canlılığını ve onaylanan aksiyonları simgeler. Açık bir renk değeri taşıdığı için üzerinde kullanılan tipografi ve ikonlarda kesinlikle derin ton (`on-primary: #003733`) tercih edilir.
+- **Secondary (`#0F4C5C` - Deep Ocean):** `#40E0D0` ile güçlü kontrast oluşturan derin okyanus petrol mavisi. İkincil butonlar, üst sekmeler ve yönetici rozetlerinde kullanılır.
+- **Tertiary (`#1E293B` - Slate Blue):** Pro uzman modülünün operasyonel kartlarında ve teknik ayrıştırmalarda ağırlık sağlayan kurumsal koyu arduvaz.
+- **Neutral (`#0F172A` - Dark Navy Ink):** Başlıklar, birincil gövde metinleri ve kritik semboller için yüksek kontrastlı mürekkep rengi.
 
-### 3.1 Butonlar
-*   **Birincil Buton (Primary):** Dolgulu Turkuaz, Beyaz metin, oval köşeler (24px).
-*   **İkincil Buton (Secondary):** İçi boş, Turkuaz çerçeveli, şeffaf arka plan.
-*   **Pasif Buton (Disabled):** Açık gri arka plan, silik metin rengi.
+### Yüzey ve Durum Renkleri
+- **Konteynerler:** `primary-container` (`#C8FAF4`) turkuazın ferahlatıcı yumuşak zeminidir; `on-primary-container` (`#004F49`) ile eşleşir.
+- **Kart ve Kanvas:** Zemin arka planı `#F8FAFC`, kart yüzeyleri `#FFFFFF` ve gruplama zeminleri `#EEF2F6` olarak kademelendirilir.
+- **Servis Durumları:** Aktif/Onaylandı durumlarında `#CCFBF1` zemin üzerine `#0F766E`, beklemedeki taleplerde `#FEF3C7` zemin üzerine `#92400E`, iptal/red durumlarında ise `#FFE4E6` zemin üzerine `#881337` kullanılır.
 
-### 3.2 Kartlar (Pazaryeri Tarzı)
-*   **Talep Kartı (Request Card):** Beyaz veya Koyu Gri arka plan, ince 1px çerçeve (`outlineVariant`), görevin özeti (Kategori, Tarih, Konum).
-*   **Teklif Kartı (Quote Card):** "En İyi Fiyat" veya "Öne Çıkan" profesyoneller için hafif primary tonlarında arka plan veya şerit vurgusu.
+## Typography
 
-### 3.3 Dinamik Formlar
-*   **Giriş Alanları (Inputs):** Minimalist tarz, net etiketler. Odaklanıldığında (Focus) 2px kalınlığında Turkuaz çerçeve.
-*   **Seçim Elemanları:** `RadioListTile` ve `CheckboxListTile` aktifken marka rengimiz olan Turkuaz'ı kullanır.
+Tipografi sistemi, operasyonel hız ve yüksek veri yoğunluğunda kusursuz okunabilirlik sunan **Inter** yazı tipi ailesiyle sürdürülür.
 
----
+- **Başlık Seviyeleri:** Negatif harf aralığı ile kompakt bir yapı sergiler. Mobilde ekran genişliğini korumak amacıyla sayfa ana başlıklarında doğrudan `headline-xl-mobile` devreye girer.
+- **Gövde Metinleri:** Servis koşulları, fiyat dökümleri ve müşteri notları için 1.5 satır yüksekliği kuralı uygulanarak satır atlama kolaylaştırılmıştır.
+- **Etiketler & Düğmeler:** Buton aksiyonları ve servis durum rozetlerinde harf boşlukları hafifçe açılarak (0.01em - 0.02em) küçük puntolarda net görünürlük garanti edilir.
 
-## 4. Modüllere Özel Temalandırma
+## Layout & Spacing
 
-Marka kimliği tek bir çizgide birleşik olsa da, modüller arasında kullanıcıya rehberlik edecek küçük görsel farklar bulunur:
+4px ritmik ızgara yapısı korunur:
 
-*   **Tam Hizmet Al (Müşteri Modülü):** Sadelik ön plandadır. İkonlar daha yumuşak ve oval hatlara sahiptir.
-*   **Tam Hizmet Ver (Profesyonel Modülü):** Veri ve işlevsellik ön plandadır. Ekranlar daha yoğun bilgi barındırabilir. Bölünmüş görevleri ayırmak için daha net çizgiler ve ayırıcılar kullanılır.
+- **Mobil Ekranlar (< 600px):** 16px (`margin: 1rem`) dış kenar boşluğu ve dikey kart akışları için 12px-16px sütun aralıkları kullanılır. Kritik teklif verme ve onay butonları alt kısımdaki güvenli alana sabitlenir.
+- **Tablet ve Masaüstü Ekranlar:** Dış kenar boşluğu 24px (`margin-lg: 1.5rem`) seviyesine genişler; servis talep detayları ve uzman profilleri iki sütunlu asimetrik ızgarada konumlandırılır.
+- **Dahili Bileşen Mesafeleri:** Form etiketleri ve rozet iç dolgularında `space-xs` (4px) ve `space-sm` (8px); kart padding'lerinde `space-md` (16px); alt çekmece panellerinde (bottom sheets) `space-lg` (24px) uygulanır.
 
----
+## Elevation & Depth
 
-## 5. Stitch Yapay Zeka Komut Rehberi (Prompting Guidelines)
+Derinlik kurgusu, yoğun gölgelerden kaçınarak yüzey hiyerarşisi ve ince ortam gölgeleriyle yapılandırılır:
 
-**Google Stitch** üzerinde bu proje için yeni bir ekran veya bileşen üreteceğiniz zaman, yapay zekaya projenin ruhunu tam aktarmak için aşağıdaki Türkçe komut şablonunu veya platformun diline göre İngilizce çevirisini kullanabilirsiniz:
+- **Level 0 (Canvas):** `#F8FAFC` taban zemin; tüm pasif arayüz bu katta yerleşir.
+- **Level 1 (Kartlar ve Hizmet Blokları):** `#FFFFFF` yüzey, `0 1px 3px rgba(15, 23, 42, 0.05)` difüze gölge ve `1px solid #E2E8F0` sınır çizgisi ile zeminden net biçimde ayrılır.
+- **Level 2 (Yüzen Butonlar & Filtre Çekmeceleri):** `0 8px 20px rgba(15, 76, 92, 0.12)` derin gölge ile harita üstü pinler ve mobil alt paneller yükseltilir.
+- **Level 3 (Modal ve Acil Durum Pencereleri):** `0 20px 40px rgba(15, 23, 42, 0.18)` belirgin odak derinliği ile kullanıcı aksiyonunu kilitler.
 
-> "Bir hizmet pazaryeri uygulaması için `DESIGN.md` manifestosunu takip eden bir UI tasarla. Tüm etkileşimli elemanlarda kesinlikle birincil renk kodu olarak #40E0D0 rengini kullan. Diğer yardımcı renk paletini ve katmanları Stitch sistemi otomatik belirlemeli. Material 3 bileşen mantığına kesinlikle uyulmalı."
+## Shapes
 
----
+Tasarım dili, modern hizmet pazaryerinin çevik ve erişilebilir doğasını yansıtan **Rounded** geometrisini kullanır:
 
-## 6. Düzen & Duyarlılık (Layout & Responsiveness)
-*   **Mobil Ekranlar:** Tek sütun, net ve odaklanmış aksiyonlar.
-*   **Web Masaüstü Ekranlar:** Çoklu panel düzeni (Örn: Solda arama listesi, sağda detay paneli).
-*   **Genişlik Engelleme (Overlay Blocker):** Genişliği 600px'den küçük olan web ekranlarında, kullanıcıyı doğrudan mobil uygulamaya yönlendiren tüm ekranı kaplayan sistem modalı devreye girer.
+- **Formlar ve Giriş Elemanları:** 8px (`0.5rem`) köşe kavisiyle stabil ve güvenilir bir çerçeve çizer.
+- **Hizmet Kartları:** 16px (`1rem` / `rounded-lg`) köşe yuvarlaklığı ile dokunmatik cihazlarda taranabilir ayrık yüzeyler oluşturur.
+- **Aksiyon Düğmeleri ve Rozetler:** 24px - 9999px tam dairesel (pill) form faktörüyle etkileşim davetkarlığını maksimize eder.
+
+## Components
+
+### Butonlar (Buttons)
+- **Primary Button:** Canlı turkuaz `#40E0D0` dolgusu, derin kontrastlı `#003733` metin ve ikon rengi, `label-lg` font, 48px dokunma yüksekliği, 24px tam oval radius. Aktifleştiğinde parlaklık yerine hafifçe koyulaşarak basılma hissi verir.
+- **Secondary Button:** Dolgusuz şeffaf arka plan, 1.5px `#0F4C5C` kenarlık ve `#0F4C5C` metin rengi.
+- **Tertiary / Ghost Button:** Çerçevesiz, `#0F4C5C` metin, hafif hover durumunda `#C8FAF4` zemin tint'i.
+- **Disabled State:** `#E2E8F0` dolgu zemin, `#94A3B8` metin rengi.
+
+### Form Elemanları (Inputs)
+- **Text Fields:** 48px yükseklik, 8px radius, `#FFFFFF` zemin ve `1px solid #CBD5E1` kenarlık. Odaklandığında kenarlık `2px solid #40E0D0` turkuazına bürünür ve yumuşak bir turkuaz halo (`0 0 0 3px rgba(64, 224, 208, 0.25)`) eklenir.
+- **Radio & Checkbox:** Seçildiğinde dolgu `#40E0D0`, onay ikonu ise `#003733`; boşta iken `1.5px solid #64748B`.
+
+### Hizmet ve Teklif Kartları (Cards)
+- **Standart Servis Kartı:** `#FFFFFF` arka plan, 16px radius, `1px solid #E2E8F0`. Kategori ikonu, servis sağlayıcı unvanı, taban fiyat ve lokasyon bilgisi dikey grid ile konumlanır.
+- **Öne Çıkan / Premium Teklif Kartı:** Kartın sol kenarında 4px dikey `#40E0D0` turkuaz şerit, tepe alanında `primary-container` zeminli "En Uygun / Öne Çıkan" durum çipi bulunur.
+
+### Durum Rozetleri (Status Chips)
+- **Aktif / Tamamlandı:** `#CCFBF1` zemin, `#0F766E` koyu teal metin.
+- **Beklemede / Teklif Hazırlanıyor:** `#FEF3C7` zemin, `#92400E` amber metin.
+- **İptal Edildi:** `#FFE4E6` zemin, `#881337` gül kurusu metin.
+- **Pill Şekli:** `label-sm` tipografi, dikey 4px ve yatay 10px iç boşluk, tam kavisli kenarlar.
+
+### Liste Öğeleri (List Tiles)
+- 64px taban yüksekliği, sol blokta `#EEF2F6` zeminli yuvarlak servis ikonu, orta alanda iki kademeli hiyerarşik metin (`body-md` ve `body-sm`), sağ blokta ise servis tutarı ve yönlendirme oku yer alır.

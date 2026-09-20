@@ -191,6 +191,8 @@ lib/
 
 **Web Mobile Blocking Implementation:** Global MaterialApp seviyesinde LayoutBuilder veya MediaQuery kullanılarak web platformunda genişlik < 600px olduğunda ekranın üzerine z-index seviyesi yüksek yönlendirme Modal'ı yerleştirilmelidir.
 
+**App Ayrımı (Customer & Provider):** Müşteri ve Profesyonel (Hizmet Veren) uygulamaları mobil (Android) tarafında **daima iki ayrı uygulama (farklı APK/AAB)** olarak çıkarılacaktır (örneğin `main_customer.dart` ve `main_provider.dart` ile ayrılarak). **Web tarafında ise** tek bir uygulama olacak; kullanıcı web'e girdiğinde veya giriş yaptığında rolünü seçecek ve sistem ona göre yönlendirme yapacaktır.
+
 ## 7. Proje Yönetimi ve Dosya Sistemi Kuralları (Project Management)
 
 Geliştirme süreci boyunca tüm proje yönetimi, görev takibi ve dokümantasyon güncellemeleri ana dizindeki `project-management/` klasörü içinde yürütülecektir. Ajan, bu klasördeki markdown dosyalarını aşağıdaki katı kurallara göre yönetecek ve güncelleyecektir. Öncelik seviyeleri her zaman 1 ile 9 arasındadır (1 en yüksek öncelik).

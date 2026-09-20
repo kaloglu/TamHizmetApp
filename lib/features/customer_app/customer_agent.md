@@ -47,7 +47,7 @@ lib/features/customer_app/
 3. **Teklif Limiti:** Bir talep en fazla max_quotes (varsayılan: 10) teklif alabilir. quotes koleksiyonuna yazma işlemi yapılmadan önce bu limit mutlaka kontrol edilmelidir.
 4. **Müşteri Mesajı:** Teklif sonrası Pro'ya sınırsız mesaj gönderebilir.
 5. **Talep Durumu:** `OPEN → IN_PROGRESS → COMPLETED | CANCELLED`. İş sürecindeki ücret detaylandırması tamamen Müşteri ile Profesyonel arasındadır; platform ödeme aracılığı yapmaz.
-6. **İş Tamamlama & Puanlama:** İş bitiminde Profesyonel "İşi Yaptım" bildirimi gönderdiğinde, Müşteriden işin tamamlandığına dair onay ve Profesyoneli puanlayıp yorumlaması beklenir.
+6. **İş Tamamlama & Puanlama:** İş bitiminde taraflar birbirini beklemek zorunda değildir. Profesyonel "İşi Yaptım" butonuna basarak süreci tetikleyebileceği gibi, Müşteri de dilediği an ustayı beklemeden "İş Tamamlandı / Bitti" aksiyonunu kendisi doğrudan tetikleyebilir. Her iki durumda da iş bittiğinde müşterinin ustayı puanlayıp yorumlaması istenir.
 7. **Konum:** `requests` dokümanında `location.province / district / neighborhood` kullanılır.
 8. **Rol Değişimi:** Kullanıcı customer ise ve hizmet ver seçip yeni uygulamaya geçtiyse provider profili oluşturup kayıt olana kadar role değiştirme yapılmaz; ne zaman ki provider profili oluşur o zaman kullanıcının rolü (customer'a ek olarak provider da oluştuğu için) BOTH olarak güncellenir. Bu işlem sonrasında `customer_profiles` dokümanı asla silinmez ve korunur.
 

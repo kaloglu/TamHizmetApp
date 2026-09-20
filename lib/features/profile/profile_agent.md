@@ -25,8 +25,8 @@ lib/features/profile/
 │       ├── save_provider_profile_usecase.dart
 │       └── get_profile_usecase.dart
 └── presentation/
-    ├── bloc/
-    │   └── profile_bloc.dart
+    ├── controllers/
+    │   └── profile_controller.dart
     ├── screens/
     │   ├── customer_profile_form_screen.dart  ← Onboarding zorunlu form
     │   ├── provider_profile_form_screen.dart  ← Onboarding zorunlu form
@@ -48,7 +48,7 @@ lib/features/profile/
    - `categories` (en az 1), `service_provinces`, `service_districts`, `service_neighborhoods`
    - Eksik ise RouteGuard `provider_profile_form_screen`'e yönlendirir.
 
-3. **Onboarding Guard Tetikleme:** Auth feature'daki RouteGuard, bu feature'ın repository'sini çağırarak profil varlığını kontrol eder. Doküman yoksa veya gerekli alanlar boşsa yönlendirme yapılır.
+3. **Onboarding Guard Tetikleme:** Auth feature'daki RouteGuard, doğrudan profile repository'sini çağırmaz. Bunun yerine Riverpod üzerindeki global profileProvider state'ini dinler. State içinde profil eksik (null veya zorunlu alanlar boş) ise yönlendirme yapılır.
 
 4. **Profil Güncelleme:** Kullanıcı sonradan profil sayfasından bilgileri güncelleyebilir. Güncelleme sonrası Firestore'daki ilgili doküman (`customer_profiles/{uid}` veya `provider_profiles/{uid}`) üzerine yazılır.
 
@@ -61,18 +61,18 @@ Müşteri, Profil ekranındaki menüden "Hizmet Ver" seçeneğini seçerek profe
 Profesyonel, Profil ekranındaki menüden "Hizmet Al" seçeneğini seçerek müşteri rolüne geçebilir. Bu işlem sırasında mevcut profesyonel profili (`provider_profiles`) korunarak kullanıcıya yeni bir müşteri profili (`customer_profiles`) oluşturulur. Kullanıcının `users/{uid}` kaydındaki `active_role` değeri `BOTH` olarak güncellenir. Artık kullanıcı her iki rolün de özelliklerine sahiptir. 
 
 8. **Hesabın silinmesi**
-Kullanıcı profil sayfasından hesabını silebilir. Bu işlem sırasında `users/{uid}` dokümanı silinir. Bununla birlikte, customeri provider yada both olmasına bakılmaksızın `customer_profiles` ve `provider_profiles` dokümanları inactive olarak işaretlenir ve 30 gün boyunca saklanır. 30 günde bir inactive verilerin tamamen silinmesi için gerekli betik hazırlanır.
+Kullanıcı profil sayfasından hesabını silebilir. Bu işlem sırasında `users/{uid}` dokümanı silinir. Bununla birlikte, customer veya provider ya da both olmasına bakılmaksızın `customer_profiles` ve `provider_profiles` dokümanları `status: 'INACTIVE'` (veya `is_active: false`) olarak işaretlenir ve 30 gün boyunca saklanır. 30 günde bir inactive verilerin tamamen silinmesi için gerekli betik hazırlanır.
 
 ---
 
 ## Firestore Şeması
 ```
 customer_profiles/{uid}
-  - user_id, created_at, province, district, neighborhood, address, rating_avg, review_count
+  - user_id, created_at, province, district, neighborhood, address, rating_avg, review_count, status: 'ACTIVE' | 'INACTIVE'
 
 provider_profiles/{uid}
   - user_id, categories[], service_provinces[], service_districts[], service_neighborhoods[]
-  - credit_balance, rating_avg, review_count, is_verified, created_at
+  - credit_balance, rating_avg, review_count, is_verified, created_at, status: 'ACTIVE' | 'INACTIVE'
 ```
 
 ---

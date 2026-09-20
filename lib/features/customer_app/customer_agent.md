@@ -25,9 +25,9 @@ lib/features/customer_app/
 │       ├── get_quotes_usecase.dart
 │       └── accept_quote_usecase.dart
 └── presentation/
-    ├── bloc/
-    │   ├── request_bloc.dart
-    │   └── quote_bloc.dart
+    ├── controllers/
+    │   ├── request_controller.dart
+    │   └── quote_controller.dart
     ├── screens/
     │   ├── home_screen.dart             ← Kategori listesi
     │   ├── category_form_screen.dart    ← Dinamik form (FormBuilderWidget)
@@ -44,11 +44,11 @@ lib/features/customer_app/
 
 1. **Onboarding Guard:** `customer_profiles` dokümanı eksikse kullanıcı profil ekranına yönlendirilir.
 2. **Dinamik Form:** `categories/{id}` dokümanındaki `questions` dizisi `FormBuilderWidget` tarafından otomatik render edilir.
-3. **Teklif Limiti:** Bir talep en fazla `max_quotes` (varsayılan: 10) teklif alabilir.
+3. **Teklif Limiti:** Bir talep en fazla max_quotes (varsayılan: 10) teklif alabilir. quotes koleksiyonuna yazma işlemi yapılmadan önce bu limit mutlaka kontrol edilmelidir.
 4. **Müşteri Mesajı:** Teklif sonrası Pro'ya sınırsız mesaj gönderebilir.
 5. **Talep Durumu:** `OPEN → IN_PROGRESS → COMPLETED | CANCELLED`
 6. **Konum:** `requests` dokümanında `location.province / district / neighborhood` kullanılır.
-7. **Rol Değişimi:** Müşteri, "Hizmet Ver" rolüne geçmek isterse Profildeki menüden Hizmet Ver seçeneğini kullanmalıdır. Bu işlem sonrasında `customer_profiles` dokümanı asla silinmez ve korunur. Kullanıcı Rolü her iki tipe de sahip olduğu için BOTH olarak değişir.
+7. **Rol Değişimi:** Kullanıcı customer ise ve hizmet ver seçip yeni uygulamaya geçtiyse provider profili oluşturup kayıt olana kadar role değiştirme yapılmaz; ne zaman ki provider profili oluşur o zaman kullanıcının rolü (customer'a ek olarak provider da oluştuğu için) BOTH olarak güncellenir. Bu işlem sonrasında `customer_profiles` dokümanı asla silinmez ve korunur.
 
 ---
 

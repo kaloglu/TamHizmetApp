@@ -32,7 +32,7 @@ lib/features/auth/
 2. **UserRole:** `CUSTOMER | PROVIDER | BOTH | ADMIN`
 3. **Web Giriş:** LoginScreen'de "Hizmet Al" ve "Hizmet Ver" sekmeleri bulunur. Kullanıcı sekmesini seçer ve "Google ile Giriş Yap" butonuna tıklar. `active_role = BOTH` olan kullanıcı menüden rol değiştirebilir. Kullanıcı BOTH değilse menüden geçiş yerine "Hizmet Ver/Al Profili Oluştur" seçeneği çıkar. Eğer BOTH ise menüden switch ile ilgili rolün ana ekranına geçilir.
 4. **Mobil Giriş:** Uygulama entry-point'i (`main_customer.dart` veya `main_provider.dart`) rolü sabitler. İlk girişte "Google ile Giriş Yap" butonu ile kimlik doğrulanır. Mobil cihazlarda BOTH seçeneği yoktur; kullanıcı kurulu olan uygulamayı kullanır.
-5. **Onboarding Guard:** Google Sign-In sonrası kullanıcının `customer_profiles` veya `provider_profiles` dokümanı kontrol edilir. Profil oluşturulmamışsa hiçbir işlem yapamaz; RouteGuard eksik profili tespit edip profil tamamlama ekranına yönlendirir.
+5. **Onboarding Guard:** Google Sign-In sonrası kullanıcının `customer_profiles` veya `provider_profiles` dokümanı kontrol edilir. Profil oluşturulmamışsa hiçbir işlem yapamaz; RouteGuard eksik profili tespit edip profil tamamlama ekranına yönlendirir. AuthController, sadece Firebase oturum durumunu değil, aynı zamanda Firestore'daki ilgili customer_profiles veya provider_profiles dokümanının varlık durumunu da (State) tutmalıdır. go_router RouteGuard, yönlendirme kararını bu birleşik duruma göre vermelidir.
 6. **Firestore Kaydı:** İlk Google girişinde `users/{uid}` dokümanı Google bilgileriyle (ad, e-posta, foto URL) oluşturulur.
 
 ---

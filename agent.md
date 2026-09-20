@@ -16,7 +16,7 @@
 |---|---|
 | Frontend | Flutter (Dart) |
 | Backend | Firebase (Auth, Firestore, Cloud Functions, Cloud Messaging, Storage) |
-| State Management | Riverpod (flutter_riverpod) |
+| State Management | Riverpod (Code generation ile @riverpod notasyonu kullanılarak Notifier mimarisi uygulanacaktır) |
 | Routing | go_router (RouteGuard ile Onboarding kontrolü) |
 | Design System | Material 3 + Responsive Layout |
 | Harici | `url_launcher` (WhatsApp), Google Play IAP (Mobil), PayTR/İyzico (Web) |

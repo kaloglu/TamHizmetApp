@@ -23,8 +23,8 @@ lib/features/chat/
 │       ├── send_message_usecase.dart
 │       └── get_messages_usecase.dart
 └── presentation/
-    ├── bloc/
-    │   └── chat_bloc.dart
+    ├── controllers/
+    │   └── chat_controller.dart
     ├── screens/
     │   └── chat_screen.dart
     └── widgets/
@@ -37,9 +37,9 @@ lib/features/chat/
 ## Temel İş Kuralları
 
 1. **Müşteri:** Sınırsız mesaj gönderebilir.
-2. **Pro Mesaj Limiti:** `quotes/{id}.provider_reply_count >= 1` olduğunda `MessageInputWidget` `disabled` duruma geçer; yeni mesaj gönderilemez. İlk mesaj gönderildiğinde sayaç Cloud Function veya istemci tarafında 1 artırılır.
+2. **Pro Mesaj Limiti:** `quotes/{id}.provider_reply_count >= 1` olduğunda `MessageInputWidget` `disabled` duruma geçer; yeni mesaj gönderilemez. İlk mesaj gönderildiğinde provider_reply_count kesinlikle bir Cloud Function veya Firestore Transaction ile backend tarafında güvenli şekilde 1 artırılır. İstemci sadece veriyi okur.
 3. **Gerçek Zamanlı:** Mesajlar Firestore `snapshots()` stream'i ile anlık gösterilir.
-4. **Chat Oluşturma:** Chat dokümanı teklif kabul edildiğinde (veya Pro teklif verdiğinde) oluşturulur.
+4. **Chat Oluşturma:** Chat dokümanı, Pro teklif verdiği anda arka planda oluşturulur (quotes ile aynı anda). Böylece müşteri teklifi gördüğünde anında mesaj yazmaya başlayabilir.
 5. **Sender Rol Etiketi:** Her mesaj `sender_role: CUSTOMER | PROVIDER` alanı taşır; balon rengi buna göre ayrışır.
 
 ---

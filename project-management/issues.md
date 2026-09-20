@@ -1,15 +1,16 @@
 # BEKLEYEN GÖREVLER
 
-** ## T1-0003: Firebase Authentication Entegrasyonu (Auth Modülü)
-** - [ ] `UserRole` enum'u oluşturulması (`CUSTOMER`, `PROVIDER`).
-** - [ ] `AuthRepository` ve `AuthService` sınıflarının yazılması (e-posta/şifre ile kayıt & giriş).
-** - [ ] `AuthBloc` (veya `AuthNotifier`) ile state yönetiminin kurulması.
-** - [ ] Rol seçim ekranı (RoleSelectionScreen): "Hizmet Almak İstiyorum" / "Hizmet Vermek İstiyorum".
-** - [ ] Kayıt ekranı (RegisterScreen): ad, e-posta, şifre alanları.
-** - [ ] Giriş ekranı (LoginScreen): e-posta, şifre alanları.
-** - [ ] Başarılı girişte `users` Firestore koleksiyonuna `UserModel` kaydedilmesi.
-** - [ ] Web için girişte rol seçimi yönlendirmesi (`active_role` değerine göre routing).
-** - [ ] Mobil için ayrı entry-point: `main_customer.dart` ve `main_provider.dart` iskeletlerinin oluşturulması.
+* ## T1-0003: Firebase Authentication Entegrasyonu (Auth Modülü)
+* - [ ] `UserRole` enum'u oluşturulması (`CUSTOMER`, `PROVIDER`, `BOTH`, `ADMIN`).
+* - [ ] `UserModel`, `CustomerProfileModel`, `ProviderProfileModel` Dart sınıflarının yazılması (güncel Firestore şemasına göre).
+* - [ ] `AuthRepository` ve `AuthService` sınıflarının yazılması (e-posta/şifre ile kayıt & giriş).
+* - [ ] `AuthBloc` (veya `AuthNotifier`) ile state yönetiminin kurulması.
+* - [ ] **Web** giriş ekranı: "Hizmet Al" / "Hizmet Ver" sekmeleri ile rol seçimli LoginScreen.
+* - [ ] **Mobil** RoleSelectionScreen: "Hizmet Almak İstiyorum" / "Hizmet Vermek İstiyorum" seçimi (tek seferlik).
+* - [ ] Kayıt ekranı (RegisterScreen): ad, e-posta, şifre.
+* - [ ] Başarılı kayıtta `users` Firestore koleksiyonuna `UserModel` kaydedilmesi.
+* - [ ] **Onboarding Guard:** Kayıt sonrası role göre zorunlu profil formu ekranına yönlendirme. Profil tamamlanmadan işlem yapan kullanıcı RouteGuard ile bu ekrana döndürülür.
+* - [ ] Mobil için ayrı entry-point: `main_customer.dart` ve `main_provider.dart` iskeletlerinin oluşturulması.
 
 * ## T2-0002: Dinamik Form Altyapısı (FormBuilderWidget)
 * **⚠️ Bu görev T1-0003 (Auth) bittikten sonra başlanacaktır.**

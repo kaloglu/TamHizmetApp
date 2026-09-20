@@ -59,25 +59,38 @@ Web sürümü tarayıcıda açıldığında, ekran genişliği mobil boyuta (`wi
   "email": "string",
   "phone": "string",
   "display_name": "string",
-  "active_role": "CUSTOMER | PROVIDER",
+  "active_role": "CUSTOMER | PROVIDER | BOTH | ADMIN",
   "created_at": "timestamp"
 }
 ```
-
+### `customer_profiles` Collection
+```json
+{
+  "user_id": "string",
+  "created_at": "timestamp",
+  "province": "string",
+  "district": "string",
+  "neighborhood": "string",
+  "address": "string",
+  "rating_avg": 4.8,
+  "review_count": 0
+}
+```
 ### `provider_profiles` Collection
 ```json
 {
   "user_id": "string",
   "categories": ["cat_1", "cat_2"],
-  "service_cities": ["İstanbul"],
+  "service_provinces": ["İstanbul"],
+  "service_districts": ["Bayrampaşa", "Fatih"],
+  "service_neighborhoods": ["Yenidoğan Mh.", "Mevlana Mh."],
   "credit_balance": 150.0,
   "rating_avg": 4.8,
   "review_count": 12,
-  "is_verified": true
+  "is_verified": false,
+  "created_at": "timestamp"
 }
 ```
-
-
 ### categories Collection (Dinamik Soru Şeması)
 ```json
 {

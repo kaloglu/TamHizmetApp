@@ -1,82 +1,82 @@
-# Design System Manifest: TamHizmet.app
+# Tasarım Sistemi Manifestosu: TamHizmet.app
 
-This document defines the visual language, design tokens, and component architecture for TamHizmet.app, intended for use with **Google Stitch** and development implementation.
+Bu doküman, TamHizmet.app projesinin görsel dilini, tasarım token'larını (tasarım bileşenlerini) ve bileşen mimarisini tanımlar. **Google Stitch** ve yazılım geliştirme sürecinde ortak bir rehber olarak kullanılmak üzere hazırlanmıştır.
 
-## 1. Brand Identity & Vibe
+## 1. Marka Kimliği & "Vibe" (Hissiyat)
 
-*   **Vibe:** Modern, Professional, Trustworthy, Clean.
-*   **Target:** Dual-sided marketplace (Service Seekers & Service Professionals).
-*   **Concept:** Seamless connection. The interface should feel invisible, focusing on the clarity of tasks and communication.
+*   **Hissiyat (Vibe):** Modern, Profesyonel, Güven Verici, Sade.
+*   **Hedef Kitle:** Çift taraflı pazaryeri (Hizmet Alan Müşteriler & Hizmet Veren Profesyoneller / Pro'lar).
+*   **Konsept:** Kusursuz bağlantı. Arayüz olabildiğince görünmez hissettirmeli, tamamen görevlerin netliğine ve iletişime odaklanmalıdır.
 
 ---
 
-## 2. Design Tokens
+## 2. Tasarım Token'ları (Design Tokens)
 
-### 2.1 Color Palette
-Primary brand identity is defined by a vibrant Turquoise.
+### 2.1 Renk Paleti
+Markanın ana kimliği canlı bir Turkuaz renk ile tanımlanmıştır.
 
-| Token | Role | HEX | Usage |
+| Token Adı | Görevi / Rolü | HEX Kodu | Kullanım Alanı |
 |---|---|---|---|
-| `primary` | Brand Identity | `#00C4B5` | Main buttons, active states, branding elements. |
-| `primary-variant` | Accent | `#17C3B2` | Gradients, hover states. |
-| `bg-light` | Surface (Light) | `#F8F9FA` | Main background for Light Mode. |
-| `bg-dark` | Surface (Dark) | `#1E1E1E` | Main background for Dark Mode. |
-| `surface` | Card/Elevated | `#FFFFFF` | Card backgrounds in light mode. |
-| `surface-dark` | Card/Elevated | `#2B2B2B` | Card backgrounds in dark mode. |
-| `text-primary` | Main Text | `#212529` | Headlines and body text. |
-| `text-secondary` | Muted Text | `#6C757D` | Captions, labels, helper text. |
-| `error` | Warning | `#DC3545` | Validation errors, destructive actions. |
+| `primary` | Ana Marka Rengi | `#00C4B5` | Ana butonlar, aktif seçim durumları, vurgular. |
+| `primary-variant` | Vurgu Tonu | `#17C3B2` | Gradyanlar, hover (üzerine gelme) durumları. |
+| `bg-light` | Arka Plan (Açık) | `#F8F9FA` | Açık Tema (Light Mode) ana arka planı. |
+| `bg-dark` | Arka Plan (Koyu) | `#1E1E1E` | Karanlık Tema (Dark Mode) ana arka planı (Koyu Gri). |
+| `surface` | Kart / Yüzey | `#FFFFFF` | Açık temadaki kart ve katman arka planları. |
+| `surface-dark` | Kart / Yüzey (Koyu) | `#2B2B2B` | Karanlık temadaki kart ve katman arka planları. |
+| `text-primary` | Ana Metin | `#212529` | Başlıklar ve yoğun okunacak ana metinler. |
+| `text-secondary` | Yan Metin | `#6C757D` | Açıklamalar, etiketler, yardımcı ipucu metinleri. |
+| `error` | Hata / Uyarı | `#DC3545` | Doğrulama hataları, silme veya geri alınamaz aksiyonlar. |
 
-### 2.2 Typography
-*   **System Font:** Inter or Roboto.
-*   **Headlines:** Semi-bold, tight letter spacing.
-*   **Body:** Regular, generous line height (1.5) for readability.
+### 2.2 Tipografi (Yazı Tipi Kuralları)
+*   **Sistem Yazı Tipi:** Inter veya Roboto.
+*   **Başlıklar (Headlines):** Yarı kalın (Semi-bold), harf arası boşluğu sıkı.
+*   **Gövde Metni (Body):** Düzenli (Regular), okunurluğu artırmak için rahat satır yüksekliği (1.5).
 
-### 2.3 Spacing & Radius
-*   **Base Unit:** 4px.
-*   **Grid:** 8px increments (8, 16, 24, 32, 48, 64).
-*   **Radius:**
-    *   `sm`: 4px (Inputs)
-    *   `md`: 12px (Small Cards)
-    *   `lg`: 24px (Main Containers, Bottom Sheets)
-
----
-
-## 3. Component Architecture
-
-### 3.1 Buttons
-*   **Primary:** Solid Turquoise, White text, rounded corners (24px).
-*   **Secondary:** Outlined Turquoise, Transparent background.
-*   **Disabled:** Light gray background, Muted text.
-
-### 3.2 Cards (Marketplace Style)
-*   **Request Card:** White/Dark Gray background, subtle 1px border (`outlineVariant`), summary of the task (Category, Date, Location).
-*   **Quote Card:** Elevated primary color accent for "Best Value" or "Promoted" providers.
-
-### 3.3 Dynamic Forms
-*   **Inputs:** Minimalist style, clear labels, focus state uses Primary Turquoise border (2px).
-*   **Selection:** `RadioListTile` and `CheckboxListTile` use Primary Turquoise for active markers.
+### 2.3 Boşluklar & Köşe Oval hatları (Spacing & Radius)
+*   **Temel Birim:** 4px.
+*   **Izgara (Grid):** 4px'in katları (8, 16, 24, 32, 48, 64px).
+*   **Köşe Ovalliği (Radius):**
+    *   `sm`: 4px (Giriş alanları / Inputs)
+    *   `md`: 12px (Küçük Kartlar, Modallar)
+    *   `lg`: 24px (Ana Kapsayıcılar, Alt Sayfalar / Bottom Sheets)
 
 ---
 
-## 4. Module-Specific Theming
+## 3. Bileşen Mimarisi (Component Architecture)
 
-While the brand is unified, subtle cues differentiate the modules:
+### 3.1 Butonlar
+*   **Birincil Buton (Primary):** Dolgulu Turkuaz, Beyaz metin, oval köşeler (24px).
+*   **İkincil Buton (Secondary):** İçi boş, Turkuaz çerçeveli, şeffaf arka plan.
+*   **Pasif Buton (Disabled):** Açık gri arka plan, silik metin rengi.
 
-*   **Tam Hizmet Al (Customer):** Focus on simplicity. Icons are softer, rounded. Primary accent is consistent.
-*   **Tam Hizmet Ver (Provider):** Focus on utility and data. Layouts can be more information-dense. Accents remain Turquoise but might use stronger Dividers to separate tasks.
+### 3.2 Kartlar (Pazaryeri Tarzı)
+*   **Talep Kartı (Request Card):** Beyaz veya Koyu Gri arka plan, ince 1px çerçeve (`outlineVariant`), görevin özeti (Kategori, Tarih, Konum).
+*   **Teklif Kartı (Quote Card):** "En İyi Fiyat" veya "Öne Çıkan" profesyoneller için hafif primary tonlarında arka plan veya şerit vurgusu.
+
+### 3.3 Dinamik Formlar
+*   **Giriş Alanları (Inputs):** Minimalist tarz, net etiketler. Odaklanıldığında (Focus) 2px kalınlığında Turkuaz çerçeve.
+*   **Seçim Elemanları:** `RadioListTile` ve `CheckboxListTile` aktifken marka rengimiz olan Turkuaz'ı kullanır.
 
 ---
 
-## 5. Stitch Prompting Guidelines
+## 4. Modüllere Özel Temalandırma
 
-When using **Google Stitch** to generate new screens for this project, ensure the following prompt context is used:
+Marka kimliği tek bir çizgide birleşik olsa da, modüller arasında kullanıcıya rehberlik edecek küçük görsel farklar bulunur:
 
-> "Generate a UI following the `DESIGN.md` manifest for a service marketplace app. Use Primary Turquoise (#00C4B5) for all interactive elements. Background must be #F8F9FA. Ensure Material 3 component logic."
+*   **Tam Hizmet Al (Müşteri Modülü):** Sadelik ön plandadır. İkonlar daha yumuşak ve oval hatlara sahiptir.
+*   **Tam Hizmet Ver (Profesyonel Modülü):** Veri ve işlevsellik ön plandadır. Ekranlar daha yoğun bilgi barındırabilir. Bölünmüş görevleri ayırmak için daha net çizgiler ve ayırıcılar kullanılır.
 
 ---
 
-## 6. Layout & Responsiveness
-*   **Mobile:** Single column, focused actions.
-*   **Web Desktop:** Multi-pane layouts (e.g., Search on left, Details on right).
-*   **Overlay Blocker:** Web screens < 600px width must trigger the system-wide overlay redirecting to the mobile app.
+## 5. Stitch Yapay Zeka Komut Rehberi (Prompting Guidelines)
+
+**Google Stitch** üzerinde bu proje için yeni bir ekran veya bileşen üreteceğiniz zaman, yapay zekaya projenin ruhunu tam aktarmak için aşağıdaki Türkçe komut şablonunu veya platformun diline göre İngilizce çevirisini kullanabilirsiniz:
+
+> "Bir hizmet pazaryeri uygulaması için `DESIGN.md` manifestosunu takip eden bir UI tasarla. Tüm etkileşimli elemanlarda Ana Turkuaz (#00C4B5) rengini kullan. Arka plan #F8F9FA olmalı ve Material 3 bileşen mantığına kesinlikle uyulmalı."
+
+---
+
+## 6. Düzen & Duyarlılık (Layout & Responsiveness)
+*   **Mobil Ekranlar:** Tek sütun, net ve odaklanmış aksiyonlar.
+*   **Web Masaüstü Ekranlar:** Çoklu panel düzeni (Örn: Solda arama listesi, sağda detay paneli).
+*   **Genişlik Engelleme (Overlay Blocker):** Genişliği 600px'den küçük olan web ekranlarında, kullanıcıyı doğrudan mobil uygulamaya yönlendiren tüm ekranı kaplayan sistem modalı devreye girer.

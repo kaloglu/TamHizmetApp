@@ -4,7 +4,7 @@ class AppThemes {
   AppThemes._();
 
   // Marka Renk Sabitleri
-  static const Color primaryTurquoise = Color(0xFF00C4B5);
+  static const Color primaryTurquoise = Color(0xFF40E0D0);
   static const Color lightBackground = Color(0xFFF8F9FA);
   static const Color darkBackground = Color(0xFF1E1E1E);
 

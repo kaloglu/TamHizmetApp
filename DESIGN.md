@@ -13,11 +13,11 @@ Bu doküman, TamHizmet.app projesinin görsel dilini, tasarım token'larını (t
 ## 2. Tasarım Token'ları (Design Tokens)
 
 ### 2.1 Renk Paleti
-Markanın ana kimliği canlı bir Turkuaz renk ile tanımlanmıştır.
+Markanın ana kimliği kesinlikle Turkuaz rengi (`#40E0D0`) olarak sabitlenmiştir. Diğer yardımcı renkleri ve türetilmiş tonları Google Stitch kendi tasarım sistemine göre belirleyecektir.
 
 | Token Adı | Görevi / Rolü | HEX Kodu | Kullanım Alanı |
 |---|---|---|---|
-| `primary` | Ana Marka Rengi | `#00C4B5` | Ana butonlar, aktif seçim durumları, vurgular. |
+| `primary` | Ana Marka Rengi | `#40E0D0` | Ana butonlar, aktif seçim durumları, vurgular. |
 | `primary-variant` | Vurgu Tonu | `#17C3B2` | Gradyanlar, hover (üzerine gelme) durumları. |
 | `bg-light` | Arka Plan (Açık) | `#F8F9FA` | Açık Tema (Light Mode) ana arka planı. |
 | `bg-dark` | Arka Plan (Koyu) | `#1E1E1E` | Karanlık Tema (Dark Mode) ana arka planı (Koyu Gri). |
@@ -72,7 +72,7 @@ Marka kimliği tek bir çizgide birleşik olsa da, modüller arasında kullanıc
 
 **Google Stitch** üzerinde bu proje için yeni bir ekran veya bileşen üreteceğiniz zaman, yapay zekaya projenin ruhunu tam aktarmak için aşağıdaki Türkçe komut şablonunu veya platformun diline göre İngilizce çevirisini kullanabilirsiniz:
 
-> "Bir hizmet pazaryeri uygulaması için `DESIGN.md` manifestosunu takip eden bir UI tasarla. Tüm etkileşimli elemanlarda Ana Turkuaz (#00C4B5) rengini kullan. Arka plan #F8F9FA olmalı ve Material 3 bileşen mantığına kesinlikle uyulmalı."
+> "Bir hizmet pazaryeri uygulaması için `DESIGN.md` manifestosunu takip eden bir UI tasarla. Tüm etkileşimli elemanlarda kesinlikle birincil renk kodu olarak #40E0D0 rengini kullan. Diğer yardımcı renk paletini ve katmanları Stitch sistemi otomatik belirlemeli. Material 3 bileşen mantığına kesinlikle uyulmalı."
 
 ---
 

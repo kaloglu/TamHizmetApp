@@ -1,11 +1,12 @@
 # BEKLEYEN TESTLER
 
-* C1-0014: Riverpod Notifier ve Code Generation ile oluşturulan state yapısının ve yeni rol geçiş akışlarının (BOTH) entegrasyon doğrulaması.
-** C1-0013: Uygulamanın light ve dark temalarda doğru arka plan rengini (#F8F9FA / #1E1E1E) ve marka Turkuazı (#00C4B5) rengini yansıttığı doğrulanmalı.
-*** C1-0001: Google Sign-In işlemi iptal edildiğinde veya hata aldığında kullanıcıya uygun hata bildirimi gösterilmeli.
-*** C1-0002: Google Sign-In başarıyla tamamlandığında Firebase Auth üzerinde oturum açılmış olmalı.
-*** C1-0003: İlk Google oturumu sonrası `users/{uid}` Firestore koleksiyonunda kullanıcı dokümanı oluşturulmuş olmalı.
-*** C1-0004: Başarılı giriş sonrası kullanıcı seçtiği role uygun akışa (veya profil formuna) yönlendirilmeli.
+* C1-0015: CustomerLoginScreen'in mobil cihazlarda (<600px) dikey hiyerarşiyi, web'de ise asimetrik iki sütunlu (Marketing & Login) yapıyı doğru yansıttığı doğrulanmalı.
+** C1-0014: Riverpod Notifier ve Code Generation ile oluşturulan state yapısının ve yeni rol geçiş akışlarının (BOTH) entegrasyon doğrulaması.
+*** C1-0013: Uygulamanın light ve dark temalarda doğru arka plan rengini (#F8F9FA / #1E1E1E) ve marka Turkuazı (#40E0D0) rengini yansıttığı doğrulanmalı.
+C1-0001: Google Sign-In işlemi iptal edildiğinde veya hata aldığında kullanıcıya uygun hata bildirimi gösterilmeli.
+C1-0002: Google Sign-In başarıyla tamamlandığında Firebase Auth üzerinde oturum açılmış olmalı.
+C1-0003: İlk Google oturumu sonrası `users/{uid}` Firestore koleksiyonunda kullanıcı dokümanı oluşturulmuş olmalı.
+C1-0004: Başarılı giriş sonrası kullanıcı seçtiği role uygun akışa (veya profil formuna) yönlendirilmeli.
 C2-0001: Web tarafında giriş yapıldıktan sonra aktif role göre doğru arayüze yönlendirilmeli.
 C2-0002: Müşteri entry-point'inden (`main_customer.dart`) çalıştırıldığında Provider ekranlarına erişilememeli.
 C2-0003: Provider entry-point'inden (`main_provider.dart`) çalıştırıldığında Customer ekranlarına erişilememeli.

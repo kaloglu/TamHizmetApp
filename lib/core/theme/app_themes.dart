@@ -33,7 +33,7 @@ class AppThemes {
           fontWeight: FontWeight.bold,
         ),
       ),
-      cardTheme: const CardTheme(
+      cardTheme: const CardThemeData(
         color: Colors.white,
         elevation: 1,
         margin: EdgeInsets.zero,
@@ -66,7 +66,7 @@ class AppThemes {
           fontWeight: FontWeight.bold,
         ),
       ),
-      cardTheme: const CardTheme(
+      cardTheme: const CardThemeData(
         color: Color(0xFF2B2B2B),
         elevation: 1,
         margin: EdgeInsets.zero,
